@@ -18,7 +18,7 @@ $fromDate = $_GET['fromDate'];
 $temp_unit = $_GET['temp_unit'];
 $date_format = $_GET['date_format'];
 
-pg_connect('host=localhost port=5432 dbname=iot_stream user=postgres password='.DB_PASS) or die("Couldn't Connect ".pg_last_error()); // Connect to the Database
+pg_connect('host=localhost port=5432 dbname=postgres user=postgres password='.DB_PASS) or die("Couldn't Connect ".pg_last_error()); // Connect to the Database
 
 
 $zonesql="SELECT name FROM pg_timezone_names WHERE utc_offset = '$zoneOffset' limit 1";
