@@ -1,0 +1,38 @@
+<?php
+include_once('../../page_header_user.php');
+?>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href="https://cm-testing.sensegiz.com/sensegiz-dev/portal">Home</a></li>
+      <li><a href="https://cm-testing.sensegiz.com/sensegiz-dev/portal/user/how-to-docs/en/index.html">Dashboard</a></li>
+      <li class="active"><a href="https://cm-testing.sensegiz.com/sensegiz-dev/portal/user/how-to-docs/en/coin-data.html">COIN Data</a></li>
+      <li><a href="https://cm-testing.sensegiz.com/sensegiz-dev/portal/user/how-to-docs/en/get.html">Get Current Value</a></li>
+      <li><a href="https://cm-testing.sensegiz.com/sensegiz-dev/portal/user/how-to-docs/en/threshold.html">Threshold</a></li>
+      <li><a href="https://cm-testing.sensegiz.com/sensegiz-dev/portal/user/how-to-docs/en/stream.html">Streaming</a></li>
+      <li><a href="https://cm-testing.sensegiz.com/sensegiz-dev/portal/user/how-to-docs/en/coin-value-range.html">COIN Value Range</a></li>
+    </ul>
+  </div>
+</nav>
+<h2>COIN Data</h2>
+<p>What does each row on the COIN dashboard mean?</p>
+<p>The columns:</p>
+<p><img src="https://cm-testing.sensegiz.com/sensegiz-dev/portal/user/how-to-docs/public/img/how-to-coin-data.png" alt="coin-table-header" /></p>
+<ol>
+<li>Sl.No: A serial number for reference.</li>
+<li>Nick Name: The nick name given to the COIN during registration. 
+Example: If you have placed COIN 1 in your Living Room, you can nick name it Living Room for easy understanding.</li>
+<li>Threshold: This refers to the LOW or HIGH threshold value of the particular sensor.</li>
+<li>Value: This is the current/last updated value of the sensor.</li>
+<li>Get Current Value: Click this button to retrieve the specific COIN sensor's current value. </li>
+<li>Last Updated: Date and time of the latest data received from the COIN.</li>
+<li>Set Threshold: Set threshold for the specific COIN sensor. </li>
+<li>Set Stream: Find out how to set the streaming interval. </li>
+</ol>
+<p><strong><a href="https://cm-testing.sensegiz.com/sensegiz-dev/portal/user/how-to-docs/coin/en/coin-value-range.html">Click here to read a guide on supported sensor values and range supported by COIN</a></strong></p>
+
+<?
+include_once('page_footer_user.php');
+?>

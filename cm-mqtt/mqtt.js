@@ -1,0 +1,291 @@
+var express = require('express');
+var router = express.Router();
+
+var mqtt = require('mqtt');
+/* Changes: Added SSL Files */
+const fs = require('fs');
+
+var privateKey = fs.readFileSync('/var/www/html/emqttd/etc/certs/STAR_sensegiz_com_key.pem');
+var certificate = fs.readFileSync('/var/www/html/emqttd/etc/certs/STAR_sensegiz_com.crt');
+
+
+var options={
+	useSSL: true,
+	rejectUnauthorized : false,
+	key: privateKey,
+	cert: certificate,
+	username: 'sensegiz123', 
+	password: 'sg12345'
+}
+/* Changes Ends: SSL Files */
+var client  = mqtt.connect('mqtts://localhost:8883', options);
+// var client  = mqtt.connect('https://cm-testing.sensegiz.com:1883', { username: 'sensegiz123', password: 'sg12345' })
+var count=1;
+
+const { Client } = require('pg');
+
+var connection = require("./dbConfig.js");
+
+
+
+client.on('connect', function () {
+  	client.subscribe('gatewaydata');
+  	client.subscribe('pingalert');
+  	client.subscribe('gatewayversion');
+  	client.subscribe('registereddeviceid');
+});
+
+ 
+client.on('message', function (topic, message) {
+	//console.log(topic +"==" + message.toString() +"count=" + count++);
+	switch (topic) {
+    		case 'gatewaydata':
+      			return save_gateway_data(message);
+    		case 'pingalert':
+      			return set_gateway_status(message);
+		case 'gatewayversion':
+      			return set_gateway_version(message);
+		case 'registereddeviceid':
+      			return registered_device_id(message);
+		
+  	}
+  	console.log('No handler for topic %s', topic);
+
+	
+ 	// client.end()
+});
+
+
+function save_gateway_data(message){
+
+	var len = message.toString().length;	
+	var msg = message.toString();
+
+	if(len == 26){
+
+		var type = msg.substring(14, 16);
+		
+		var val = [ message.toString() ];
+
+		if(type == '12' || type == '14' || type == '15'){
+
+			const queryText = 'INSERT INTO accstream_dump(accstream_data) VALUES($1)';
+
+			connection.query(queryText, val, (err, res) => {			
+  				if(err){
+    					console.log(err.stack);
+  				}
+			});
+		}
+		else if(type == '09' || type == '10'){
+
+			const queryText = 'INSERT INTO stream_dump(stream_data) VALUES($1)';
+
+			connection.query(queryText, val, (err, res) => {			
+  				if(err){
+    					console.log(err.stack);
+  				}
+			});
+		}else{
+			const queryText = 'INSERT INTO data_dump(data) VALUES($1)';
+
+			connection.query(queryText, val, (err, res) => {			
+  				if(err){
+    					console.log(err.stack);
+  				}
+			});
+		}
+		
+	}
+	if(len == 24){
+
+		var val = [ message.toString() ];
+
+		const queryText = 'INSERT INTO data_dump(data) VALUES($1)';
+
+			connection.query(queryText, val, (err, res) => {			
+  				if(err){
+    					console.log(err.stack);
+  				}
+			});
+	}
+	if(len == 34){
+
+		var val = [ message.toString() ];
+
+		const queryText = 'INSERT INTO accstream_dump(accstream_data) VALUES($1)';
+
+			connection.query(queryText, val, (err, res) => {			
+  				if(err){
+    					console.log(err.stack);
+  				}
+			});
+	}
+	
+}
+
+
+function set_gateway_status(message){
+
+	var len = message.toString().length;
+	var val = [ message.toString() ];
+	
+	if(len == 24){			
+
+		const queryText = 'INSERT INTO ping_alert(alert_data) VALUES($1)';
+
+		connection.query(queryText, val, (err, res) => {			
+  			if(err){
+    				console.log(err.stack);
+  			}
+		});
+			
+	}
+	
+}
+
+
+function set_gateway_version(message){
+	
+	var msg = message.toString();
+	var len = message.toString().length;
+
+	var gateway_id = msg.slice(0, 12);
+	var version = msg.slice(13, len);
+
+	const queryText = "UPDATE user_gateways SET gateway_version ='" +version+ "', updated_on = DATE_TRUNC('second', NOW()) WHERE gateway_id='" +gateway_id+ "'AND is_deleted =0";
+
+	connection.query(queryText, (err, res) => {			
+  		if(err){
+    			console.log(err.stack);
+  		}
+	});
+}
+
+
+function registered_device_id(message){
+	
+	var len = message.toString().length;
+
+	if(len == 14){
+
+		var msg = message.toString();
+		var device_mac = msg.slice(0, 12);
+		var device_id = msg.slice(12, len);
+
+
+		const isDeviceExists = "SELECT gateway_id FROM gateway_devices WHERE device_mac_address='" +device_mac+ "' AND is_blacklisted='N' AND is_deleted =0";
+
+		connection.query(isDeviceExists, (err, res) => {			
+  			if(err){
+    				console.log(err.stack);
+  			}else{
+				var rowcount = res.rows.length;
+
+				if(rowcount != 0)
+				{
+					var gateway_id = res.rows[0]['gateway_id'];
+					
+					const updateDevices = "UPDATE gateway_devices SET device_id ='" +device_id+ "', updated_on = DATE_TRUNC('second', NOW()) WHERE device_mac_address='" +device_mac+ "' AND is_deleted =0";
+
+					connection.query(updateDevices, (err, res1) => {			
+  						if(err){
+    							console.log(err.stack);
+  						}
+					});
+				
+					
+					const isDeviceSensorExists = "SELECT * FROM devices WHERE gateway_id='" +gateway_id+ "' AND device_id = '"+ device_id +"' AND is_deleted =0";
+
+					connection.query(isDeviceSensorExists, (err, res2) => {			
+  						if(err){
+    							console.log(err.stack);
+  						}else{
+							var ds_count = res2.rows.length;
+							
+							if(ds_count == 0)
+							{
+								//Register the coin
+								for(i=1; i<32; i++){
+									if(i>=9){
+										if(i==9){
+											var zero = '0';
+											var devtype = zero.concat(i);
+										}else{
+											var devtype = i;
+										}
+
+										const insertDevices = "INSERT INTO devices(device_id, gateway_id, device_type, active) VALUES('"+device_id+"','"+gateway_id+"','"+devtype+"','N')";
+
+										connection.query(insertDevices, (err, res3) => {			
+  											if(err){
+    												console.log(err.stack);
+  											}
+										});
+
+									}else{
+										var zero = '0';
+										var devtype = zero.concat(i);
+
+										if(devtype == '01'){
+											thval = '09';
+										}
+										if(devtype == '02'){
+											thval = '1C';
+										}
+										if(devtype == '03'){
+											thval = '01';
+										}
+										if(devtype == '04'){
+											thval = '1E';
+										}
+										if(devtype == '05'){
+											thval = '05';
+										}
+										if(devtype == '06'){
+											thval = '46';
+										}
+										if(devtype == '07'){
+											thval = '01';
+										}
+										if(devtype == '08'){
+											thval = '5A';
+										}
+
+										const insertDevices = "INSERT INTO devices(device_id, gateway_id, device_type, threshold_value, active) VALUES('"+device_id+"','"+gateway_id+"','"+devtype+"','"+thval+"','N')";
+
+										connection.query(insertDevices, (err, res3) => {			
+  											if(err){
+    												console.log(err.stack);
+  											}
+										});
+									}
+								}
+
+								var device_sensors = [ 'Accelerometer', 'Gyroscope', 'Temperature', 'Humidity', 'Temperature Stream', 'Humidity Stream', 'Accelerometer Stream','Predictive Maintenance' ];
+
+								device_sensors.forEach(function(sensor){
+									let insertDevices;
+									if(sensor === 'Predictive Maintenance'){
+									insertDevices = "INSERT INTO device_settings(gateway_id, device_id, device_sensor,sensor_active) VALUES('"+gateway_id+"','"+device_id+"','"+sensor+"','N')";
+									}else{
+									 insertDevices = "INSERT INTO device_settings(gateway_id, device_id, device_sensor) VALUES('"+gateway_id+"','"+device_id+"','"+sensor+"')";
+									}
+									connection.query(insertDevices, (err, res4) => {			
+  										if(err){
+    											console.log(err.stack);
+  										}
+									});
+								});
+							}
+						}
+					});
+				}
+			}
+		});
+	}
+
+}
+
+
+module.exports = router; 

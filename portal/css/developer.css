@@ -1,0 +1,558 @@
+.thinpt2 {
+
+    width: 50px;
+    border: 1px solid #ccc;
+    padding: 4px;
+    margin-right: 15px;
+    margin-top: 4px;
+
+}
+.subholder{
+	z-index;1000;
+}
+
+#image-map {
+    width: 100%;
+    height: 90%;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+.log-last .save
+{
+background-color: #e45f14;
+    border: medium none;
+    border-radius: 3px;
+    color: #fff;
+    display: inline-block;
+    /*float: right;*/
+    font-size: 14px;
+    font-weight: bold;
+    /*margin: 13px 25px 10px 10px;*/
+    margin-top: 20px;
+    padding: 12px 25px;
+    /*width: 95px;*/
+}
+
+.error, .drerror
+{
+    color: red;
+    position: relative;
+    /*left:-68px;*/
+    bottom: 1px;
+    font-size:12px;
+}
+.success, .drsuccess
+{
+    color:green;
+    position: relative;
+    bottom: 10px;
+    font-size: 14px !important;
+    font-weight: bold;
+}
+.loc-msg
+{
+    color:green;  
+}
+.suc
+{
+    color:green;
+    left:-45px;
+}
+
+.save_but{
+    background-color: #97d74c !important;
+    border: 1px solid #81bb3d !important;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 5px 20px !important;
+    width: 50% !important;
+}
+.error-msg{
+    color: red;
+    position: relative;
+    left:4px;
+    /*bottom: -3px;*/
+    font-size:13px;
+}
+
+.error1,.error-tab
+{
+    color: red;
+    position: relative;
+    left:0;
+    bottom: 2px;
+    font-size:12px;
+}
+
+.alert-custom {
+    background-color: #DFF0D8;
+    border-color: #D6E9C6;
+    color: #3C763D;
+    left: 52%;
+    position: absolute;
+    top: 46px;
+	text-transform: capitalize
+	}
+.close-alert{
+	color: #000;
+	font-size: 16px;
+	margin-left: 10px;
+	cursor: pointer;
+}
+.lp-form a {
+    background-color: #05889c !important;
+    border: 1px solid #006478;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    margin-left: 2px;
+    padding: 11px 28px;
+    width: auto;
+    cursor:pointer;
+    text-decoration: none;
+    display:inline-block;
+}
+
+.err{
+
+    color: red;
+    font-size: 12px;
+/*    left: -7px;*/
+    position: absolute;
+    min-width: 220px;
+}
+
+.box
+{
+	border-color:#8D0000 #8D0000 !important;
+}
+#upload
+{
+    display: none;
+}
+.lp-form input[type="file"] {
+    display: block;
+    width: 100%;
+}
+.pd-btm-10
+{
+    padding-bottom: 20px;
+}
+.referral select, .referral input {
+    padding: 10px;width: 100%; color: #05889c;
+}
+.lp-content ul li {
+    width: 33.33%;
+}
+.qq-upload-success{
+    display: none !important;
+}
+.form-sel{
+    padding: 6px;
+    margin-bottom: 5px;
+}
+.dev-inp{
+    margin-bottom: 5px !important;
+}
+
+/**/
+.orng{
+color:#F9690E;
+}
+.grn{
+color:#26A65B;
+}
+.blu{
+color:#4183D7;
+}
+
+.ful_sec{width: 100% !important;}
+.username{padding-right: 50px !important;}
+.logout{padding-right: 10px !important;cursor: pointer;}
+
+.editBut{ background-color: #97d74c !important;
+    border: 1px solid #81bb3d !important;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 5px 20px !important;
+    /*width: 50% !important;*/
+}
+
+.deleteBut{ background-color: #c0392b !important;
+    border: 1px solid #c0392b !important;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 5px 20px !important;
+    /*width: 50% !important;*/
+}
+
+.rt-img > img {
+    float: right;
+    padding: 10px;
+    width: 350px;
+}
+
+.activecl {
+	background-color: #131217;
+	color: #FFF !important
+}
+
+a.qtnBut {
+    background-color: #F9690E !important;
+    border: none;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px 10px !important;
+    text-decoration: none;
+}
+
+.selInp{
+    padding: 5px;
+    width: 100%
+}
+.export_but{
+     background-color: #52B3D9;
+}
+.export_but,.export_mail,.export_channels{   
+    border: medium none;
+    border-radius: 3px;
+    float: right;
+    margin: 0 20px 20px 0;
+    padding: 5px 10px;     
+    color: #fff !important;
+    font-size: 14px;
+    font-weight: 600;    
+}
+
+.export_mail{
+     background-color: #E26A6A;
+}
+.export_channels{
+    background-color: #26A65B;
+}
+
+
+#login label {
+   color: #1f1f1f;
+    float: left;
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 5px;
+    margin-left: 15px;
+    margin-top: 20px;
+    text-align: left;
+}
+
+#login label input {
+    width: 22%
+}
+#gatewayid{
+    font-size: 16px;
+    font-weight: bold;
+    padding-left: 10px;    
+}
+
+#loader{
+    display: none;
+}
+
+.setTh, .setTh1, .setStream, .getCurrentValue, .setdetection{
+    border: none;
+    padding: 5px;
+    margin-left: 10px;
+    background-color: #26A65B;
+    border-radius: 1px;
+    font-weight: bold;
+    width: 40px;
+    color: #fff;
+}
+.thinpt{
+    width: 40px;
+    border: 1px solid #ccc;
+    padding: 4px; 
+}
+
+.done, .powerdone{
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.menu ul li{
+    border-bottom: 1px solid #aaa !important;
+}
+
+.menu ul li a{
+    padding: 17px 5px 5px 38px;
+    font-size: 14px;
+    color: #52B3D9;
+}
+.menu ul li a:focus{
+    color: #E4F1FE;
+}
+
+.date-new{
+    font-size: 11px;
+    color: #fff;  
+    margin-left: 10px;  
+}
+.detail-content{
+    /*margin-top: 65px;*/
+    border: none;
+}
+.menu ul{
+    position: relative;
+    top: 0px;
+    height: auto;
+    background-color: #1c1b21;
+    bottom: 20px;
+    margin-bottom: 100px;
+    padding: 0;
+    top: 0px;
+    width: 218px;
+}
+.menu{
+    overflow-y: auto;
+    height: 100%;
+    position: fixed;
+}
+/*ADMIN*/
+.admin-lftnav li a{
+    color: #fff !important;
+}
+
+.admin-lftnav li a.activecl {
+    color: #52B3D9 !important;
+}
+th {
+    font-size: 12px;
+}
+
+.blbtn{
+    
+    padding: 5px;    
+    border-radius: 1px;
+    font-weight: bold;    
+}
+.blacklist{
+    background-color: #ECECEC;
+    color: #000;
+    border: 1px solid #aaa;
+}
+.whitelist{
+    background-color: #000;
+    color: #fff; 
+    border: 1px solid #000;
+}
+
+.admin .detail-content{
+   border-top: 1px solid #ccc;
+   margin-top: 22px;
+}
+.userpanel .detail-content{
+   //border-top: 1px solid #ccc;
+   /*margin-top: 22px;*/
+}
+
+.delGateway,.delDevice,.harddelGateway,.harddelDevice,.delNotifyEmail,.editNotifyEmail,.editNotifyPhone,.delNotifyPhone{
+    cursor: pointer;
+}
+.admin-gateways table,.admin-devices table{
+    text-align: center;
+}
+.admin-gateways th,.admin-devices th{
+    text-align: center;
+}
+.logo{
+    border-bottom: 1px solid #ccc;
+}
+
+.table{
+    margin-bottom: 10px !important;
+}
+
+.notifications-panel{
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.notifications-panel h3{
+    font-size: 18px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+}
+
+.fixfootere{
+    bottom: 0px;
+    background-color: rgba(73,165,191,1);
+    /*height: 100px;*/
+    padding: 5px;
+    position: absolute;
+    right: 500;
+    width: 500px;
+    color: #fff;
+    overflow-y: scroll;
+}
+.fixfootere h3{
+    font-size: 14px;
+    margin: 0;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.fixfooter{
+    bottom: 0px;
+    background-color: rgba(73,165,191,1);
+    /*height: 100px;*/
+    padding: 5px;
+    position: fixed;
+    right: 0;
+    width: 500px;
+    color: #fff;
+    overflow-y: scroll;
+}
+.fixfooter h3{
+    font-size: 14px;
+    margin: 0;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.accStreamTable{
+   padding-bottom: 200px !important;
+} 
+.subholder li{
+    list-style: none;
+    cursor: pointer;
+    padding: 5px;
+    padding-left: 20px;
+}
+.subholder li a{
+    text-decoration: none;
+    color: #8f8f8f;
+    font-weight: bold;
+}
+
+.subholder{
+    background-color: #eee;
+    position: absolute;
+    width: 185px;
+    text-align: left;
+    border-radius: 2px;
+    padding: 5px 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.arrow-up {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 7px solid #eee;
+    margin-left: 82px;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.subholder li:hover{
+    background-color: #ddd;
+}
+.username{
+    cursor: pointer;
+}
+
+.log-det:hover > ul.subholder,.log-det:hover > .arrow-up{
+    opacity: 1;
+    visibility: visible;
+}
+
+//.content{
+   overflow: auto;
+}
+.ancYellow{
+    color: #FDE3A7 !important;
+}
+.editUser{
+    cursor: pointer;
+}
+
+.table > thead > tr > td.active, .table > tbody > tr > td.active, .table > tfoot > tr > td.active, .table > thead > tr > th.active, .table > tbody > tr > th.active, .table > tfoot > tr > th.active, .table > thead > tr.active > td, .table > tbody > tr.active > td, .table > tfoot > tr.active > td, .table > thead > tr.active > th, .table > tbody > tr.active > th, .table > tfoot > tr.active > th{
+    text-align: center;
+}
+.users-list{
+    text-align: center;
+}
+
+.labh6{
+    font-weight: bold;
+    font-size: 15px;    
+}
+
+.input-new{
+    padding: 5px 10px;
+    width: 225px;
+    border: 1px solid #bbb;
+    border-radius: 2px;    
+}
+.addMails,.addPhone, .addShow, .realAlert, .addImage{
+    width: 224px;
+    background-color: #6C7A89 !important;
+    border: medium none;
+    border-radius: 2px;
+    color: #fff;
+
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 20px;
+    padding: 9px 20px !important; 
+}
+
+#slideCtrl{
+    float: right;
+    /*padding: 5px;*/
+    cursor: pointer;    
+}
+
+#slideCtrla{
+    float: right;
+    /*padding: 5px;*/
+    cursor: pointer;    
+}
+
+
+.ntfn-box{
+    /*width: 460px;*/
+    height: 100px;
+    overflow-y: auto;
+}
+
+.infobar{
+    bottom: 0px;
+    padding: 5px;
+    position:fixed;    
+    width: 550px;
+    color: #fff;
+}
+
+.alertbar{    
+   padding: 5px;
+    position:fixed;    
+    width: 550px;
+    color: #fff;
+    left:500px;
+	top: 90px;
+	z-index:100;
+}
+.updateUser{
+    cursor: pointer;
+   }
+
+.deleteUser{
+    cursor: pointer;
+   }
