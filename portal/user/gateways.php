@@ -246,6 +246,7 @@ include './mqtt.php';
            //Using the HiveMQ public Broker, with a random client Id
 // var client = new Messaging.Client("broker.mqttdashboard.com", 8000, "vkmyclientid_" + parseInt(Math.random() * 100, 10));
 var server_ip = window.location.host;
+
  //var client = new Messaging.Client(server_ip, 8084, "vinkmyclientid_" + parseInt(Math.random() * 100, 10));
 client = new Paho.MQTT.Client(server_ip, 8084, "vinkmyclientid_" + parseInt(Math.random() * 100, 10));
 console.log("mqtt connect===",client);
@@ -462,7 +463,7 @@ if(devType!= '09' && devType!='10' && devType!='11' && devType!='12' && devType!
      timeout: 3,
      //Gets Called if the connection has sucessfully been established
      onSuccess: function () {
-   //      alert("Connected");
+        // alert("Connected");
          client.subscribe('myname');
 		//var autohandle = null;
 	
