@@ -347,13 +347,13 @@ console.log("mqtt connect===",client);
 
 		var gateway_id = localStorage.getItem("gatewayId");
 	        var gw_split  = gateway_id.split(",");
-
+			var uid     =  $('#sesval').data('uid');
 		var q = gw_split.length;
 
                 for(i=0; i < q; i++) {
                     var g_id = gw_split[i];			
                  //   getDevices(g_id);
-			loadSubscriber(g_id);
+			loadSubscriber(uid);
                 }    		
 		
 
