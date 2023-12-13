@@ -1,9 +1,1 @@
-/cm-mqtt/node_modules
-/cm-mqtt/.env
-/src/config/config.php
-/src/config/connect.php
-/sensegiz-mqtt/daily_report/*
-/cm-mqtt/dbConfig.js
-/portal/user/user_uploads/*
-/portal/user/user_logo/*
-/portal/user/daily_report/*
+
