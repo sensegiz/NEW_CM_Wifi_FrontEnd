@@ -443,7 +443,7 @@ else if(isBlacklisted=='N'){
                                             console.log('firmware_release_Date==',firmware_release_Date);
                                             firmware_release_Date = new Date(firmware_release_Date).toISOString().slice(0,10);
                                             var firmware_type = value.firmware_type;
-
+                                            var firmware_version = value.firmware_version ? value.firmware_version : "-" ;
 //                                            var user_email  =  value.user_email;
                                             var date        =  '';
                                             if(value.added_on!=''){
@@ -495,6 +495,7 @@ else if(isBlacklisted=='N'){
                                                         +'<td>'+bl_btn+'<span class="done grn"></span></td>'
                                                         +'<td>'+firmware_release_Date+'</td>'
                                                         +'<td>'+firmware_type+'</td>'
+                                                        +'<td>'+firmware_version+'</td>'
                                                 	    +'<td>'+restore_btn+'</td>'
                                                         +'</tr>';
                                         });                        

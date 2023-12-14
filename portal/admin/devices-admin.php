@@ -118,6 +118,7 @@ $id  =   0;
                                     <th>Blacklist/ Whitelist</th>   
                                     <th>Firmware Date</th>
                                     <th>Firmware Type</th>
+                                    <th>Firmware Version</th> 
                                     <th>Delete</th>
                                 </tr>
                                 <tbody class="users" id="adminDevicessList">
