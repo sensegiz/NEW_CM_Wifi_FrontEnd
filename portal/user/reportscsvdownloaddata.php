@@ -219,7 +219,16 @@ for($k=0; $k < $count_device_type1; $k++)
 			fputcsv($f, $fields, $sep);
 		}
 		print("\n");
-
+		$thresholdJsonData = array(
+			"2020" => "2",
+			"2030" => "3",
+			"2040" => "4",
+			"2050" => "5",
+			"2060" => "6",
+			"2070" => "7",
+			"2080" => "8",
+			"2090" => "9",
+		);
 		//start while loop to get data
 		while($row = pg_fetch_row($result))
 		{
@@ -251,7 +260,11 @@ for($k=0; $k < $count_device_type1; $k++)
 			            if(!isset($row[$j])){
 			                $data_insert .= "NULL".$sep;
 			            }elseif ($row[$j] != ""){
-							$data_insert .= "$row[$j]".$sep;
+							if(array_key_exists("$row[$j]", $thresholdJsonData)){
+								$data_insert .= $thresholdJsonData["$row[$j]"].$sep;;
+							}else{
+								$data_insert .= "$row[$j]".$sep;
+							}
 			            }else{
 			                $data_insert .= "".$sep;
 			 	    	}

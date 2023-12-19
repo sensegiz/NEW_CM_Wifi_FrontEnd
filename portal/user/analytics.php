@@ -1,3 +1,4 @@
+<!-- WIFI -->
 <?php 
 include_once('page_header_user.php');
 ?>
