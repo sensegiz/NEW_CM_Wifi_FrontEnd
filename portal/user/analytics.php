@@ -3824,6 +3824,8 @@ function downloadPDF(columns, rows, gateway_id, device_id, device_type, nick_nam
 		doc.setFontSize(10);
 		doc.text(15, 40, "Below are the metric details of the coin selected : ");
 		doc.text(15, 45, "Gateway ID/Nickname : " + gateway_id + "/" + gateway_name);
+		 device_id = parseInt(device_id, 16);
+		// $device_id = hexdec($device_id);
 		doc.text(15, 50, "Device ID : " + device_id);
 		doc.text(15, 55, "Nick Name : " + nick_name);
 		
