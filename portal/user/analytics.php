@@ -3762,6 +3762,7 @@ function downloadPDF(columns, rows, gateway_id, device_id, device_type, nick_nam
 	var temp_unit  =  $('#sesval').data('temp_unit');
 	var uid = $('#sesval').data('uid');
     var apikey = $('#sesval').data('key');
+	
 
 	var res_gw_nickname = getGateway_nickname(gateway_id, uid, apikey);
 	var gateway_name;

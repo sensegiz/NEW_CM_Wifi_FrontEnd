@@ -303,6 +303,7 @@ if($device_type == '11') {
 
 echo "Below are the metric details of the coin selected :" . "\n";
 echo "Gateway ID/Nickname : $gateway_id ($gateway_name)" . "\n";
+$device_id = hexdec($device_id); 
 echo "Device ID :  $device_id" . "\n";
 echo "Metric : $dev_type" . "\n";
 echo "Unit : $unit_d" . "\n";
