@@ -3920,6 +3920,7 @@ function getCoin(gatewayId) {
                     			var device_id = data.records[gw_split[i]][q]['device_id'];
                     			var nick_name = data.records[gw_split[i]][q]['nick_name'];
                     			var id = data.records[gw_split[i]][q]['id'];
+                                 var active = data.records[gw_split[i]][q]['active'];
                     			var coin_lat = data.records[gw_split[i]][q]['coin_lat'];
                                 var coin_lng = data.records[gw_split[i]][q]['coin_lng'];
                                 var coin_location = data.records[gw_split[i]][q]['coin_location'];
@@ -3932,8 +3933,9 @@ function getCoin(gatewayId) {
                     				
 
                     			if(coin_lat!= '' && coin_lng!= '') {
+                                    var iconUrl = active === 'Y' ? 'uploads/markergreen.png' : 'uploads/markerred.png'; 
 						var icon = L.icon ({
-								iconUrl: 'uploads/marker.png',
+								iconUrl: iconUrl,
 								iconSize:     [25, 25],
 							});
 

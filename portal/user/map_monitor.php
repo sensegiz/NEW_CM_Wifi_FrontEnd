@@ -353,7 +353,7 @@ console.log("mqtt connect===",client);
                 for(i=0; i < q; i++) {
                     var g_id = gw_split[i];			
                  //   getDevices(g_id);
-			loadSubscriber(uid);
+			loadSubscriber(gateway_id);
                 }    		
 		
 
