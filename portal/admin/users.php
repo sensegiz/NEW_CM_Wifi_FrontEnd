@@ -129,6 +129,7 @@ $id  =   0;
                     <th>Email Id</th>
                     <th>Phone</th>
                     <th>Date</th> 
+                    <th>Coin Offline Time</th> 
                     <th>Edit</th> 
                     <th>Update Email</th> 
                     <th>Delete</th>

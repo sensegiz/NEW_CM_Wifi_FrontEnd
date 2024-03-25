@@ -77,6 +77,39 @@ class AdminManager {
         $db->bind(':password',$password);
         return $db->single();
     }
+
+    
+    public function updateCoinOfflineTime($inData){
+        $db = new ConnectionManager();
+        $db1 = new ConnectionManager();
+        $generalMethod = new GeneralMethod();   
+        $curl     = new CurlRequest();
+        
+        try {       
+            
+            echo " updateCoinOfflineTime ", json_encode($inData), "_______   ";
+
+            $u_id = $inData['u_id'];
+            $coinofflinetimeValue = $inData['coinofflinetime'];
+           
+            echo "u_id: " . $u_id . "<br>";
+            echo "coinofflinetimeValue:-> " . $coinofflinetimeValue . "<br>";
+        
+            $query = " UPDATE users "
+                . " SET coinofflinetime=:coinofflinetime"
+                . " WHERE user_id=:user_id";
+
+            $db->query($query);
+            $db->bind(':user_id', $u_id);
+            $db->bind(':coinofflinetime', $coinofflinetimeValue);
+            $db->execute();
+            $aList[JSON_TAG_STATUS] = 0;
+        } catch (Exception $e) {
+
+            $aList[JSON_TAG_STATUS] = 1;
+        }
+        return $aList;
+    }
     
     //Check User     
      public function loginCheckUser($db,$user_email,$user_password){
@@ -245,7 +278,7 @@ class AdminManager {
     public function getInvitedUsers(){
         $db = new ConnectionManager();
         try {      
-            $sQuery = " SELECT user_id,admin_id,user_email,user_phone,added_on,updated_on "
+            $sQuery = " SELECT user_id,admin_id,user_email,user_phone,added_on,updated_on,coinofflinetime  "
                     . " FROM users "                  
                     . " WHERE is_deleted =0 ORDER BY user_id DESC";                 
             $db->query($sQuery);

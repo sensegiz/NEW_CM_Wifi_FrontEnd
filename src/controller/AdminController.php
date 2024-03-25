@@ -97,7 +97,27 @@ class AdminController {
         $genMethod  = new GeneralMethod();
         $result = $adminModel->getInvitedUsers();
         $genMethod->generateResult($result);   
-    }          
+    }      
+    
+    public function updateCoinOfflineTime(){
+  
+      
+        $adminModel = new AdminModel();
+        $genMethod  = new GeneralMethod();
+        $instance   = \Slim\Slim::getInstance();
+        $bodyData   = $instance->request()->getBody();
+        $inData     = json_decode($bodyData, true);
+       if (is_array($inData)) {
+            $result = $adminModel->updateCoinOfflineTime($inData);
+       } 
+       else { 
+           $result = $this->paramMissing($instance);             
+       }
+
+        $genMethod->generateResult($result); 
+
+        
+    }
     
       /*
       Function            : userCreateNewPassword()

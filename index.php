@@ -38,7 +38,7 @@ require 'library/vendor/autoload.php';
         
         //Get Invited users
         $Rest->get('/admin/invited-users',array($AdminCtr, 'getInvitedUsers')); 
-        
+        $Rest->post('/admin/update-coin-offline-time',array($AdminCtr, 'updateCoinOfflineTime')); 
         //To create new USER password
         $Rest->post('/admin/create-password',array($AdminCtr, 'userCreateNewPassword'));
         
