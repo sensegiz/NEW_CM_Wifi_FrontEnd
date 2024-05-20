@@ -412,6 +412,7 @@ class AppManager {
             $gatewayId              =    $inData[JSON_TAG_GATEWAY_ID];
             $userId                 =    $inData[JSON_TAG_USER_ID];
             $nickName               =    $inData[JSON_TAG_NICK_NAME];
+            $coin_location          =    $inData[JSON_TAG_COIN_LOCATION];
 //             print_r($inData);
             // Check Mandatory field    
             if(empty($deviceMacAddress) || empty($gatewayId) || empty($userId) || empty($nickName)) { $aList[JSON_TAG_STATUS] = 2; return $aList;}            
@@ -443,26 +444,27 @@ class AppManager {
 //            exit();
             if(!empty($rowUserDevice)){
                     $sQuery = " UPDATE gateway_devices "
-                            . " SET updated_on=now(),nick_name=:nick_name"
+                            . " SET updated_on=now(),nick_name=:nick_name,coin_location=:coin_location"
                             . " WHERE user_id =:user_id AND gateway_id =:gateway_id AND device_mac_address =:device_mac_address AND is_deleted=0 ";
                     $db->query($sQuery);
                     $db->bind(':device_mac_address',$deviceMacAddress);
                     $db->bind(':user_id',$userId);
                     $db->bind(':gateway_id',$gatewayId); 
                     $db->bind(':nick_name',$nickName); 
-                                        
+                    $db->bind(':coin_location',$coin_location);                    
                     $db->execute();                                
             }
             else{
-                $query = "INSERT INTO gateway_devices(user_id, gateway_id, device_mac_address, nick_name, added_on, updated_on) "
-                        . "VALUES (:user_id, :gateway_id, :device_mac_address, :nick_name, NOW(), NOW())";
+                $query = "INSERT INTO gateway_devices(user_id, gateway_id, device_mac_address, nick_name, added_on, updated_on,coin_location) "
+                        . "VALUES (:user_id, :gateway_id, :device_mac_address, :nick_name, NOW(), NOW(),:coin_location)";
 //                print_r($query);
 //                exit();
                 $db->query($query);
                 $db->bind(':device_mac_address',$deviceMacAddress);
                 $db->bind(':user_id',$userId);
                 $db->bind(':gateway_id',$gatewayId);  
-                $db->bind(':nick_name',$nickName);                 
+                $db->bind(':nick_name',$nickName); 
+                $db->bind(':coin_location',$coin_location);               
                 $db->execute();                
             }
             

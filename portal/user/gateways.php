@@ -269,9 +269,14 @@ include_once ('page_header_user.php');
 		//     alert("connection lost: " + responseObject.errorMessage);
 	};
 
+	
+
+
+
+
 	//Gets called whenever you receive a message for your subscriptions
 	client.onMessageArrived = function (message) {
-		// console.log('--msg recvd--',message);
+		 console.log('--msg recvd--',message);
 
 		// Retrieve the object from storage
 
@@ -286,7 +291,7 @@ include_once ('page_header_user.php');
 
 			console.log("it coin status: ", arrMsg[0]);
 			var coinStatusMsg = arrMsg[1];
-			var notMsg = '<p class="notifyline">' + coinStatusMsg + '</p>'; 
+			var notMsg = '<p class="notifyline">' + coinStatusMsg + '</p>';
 			$("#notifyBar").after(notMsg);
 		} else {
 

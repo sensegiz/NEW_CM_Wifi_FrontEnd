@@ -1465,6 +1465,8 @@ $(document).on("click", ".btnAddDevices", function (e) {
     var gateway_id = $('#new_gateway_id').val();
     var coin_mac_id = $('#coin_mac_id').val();
     var coin_nickname = $('#coin_nickname').val();
+    var coin_placement = $('input[name="coin_placement"]:checked').val();
+    console.log("------coin_placement-----",coin_placement);
     var postdata;
     if (onlyGateway == "true") {
         user_id = $('#txtgatewayUserChange').val();
@@ -1479,7 +1481,8 @@ $(document).on("click", ".btnAddDevices", function (e) {
             user_id: user_id,
             gateway_id: gateway_id,
             device_mac_address: coin_mac_id,
-            nick_name: coin_nickname
+            nick_name: coin_nickname,
+            coin_location:coin_placement
         }
         apiPathForDevices = 'devices';
     }

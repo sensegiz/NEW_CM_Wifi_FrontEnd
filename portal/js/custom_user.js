@@ -2463,7 +2463,7 @@ function dataconvert(dval)
 	$('.success').html('Connected to the gateway');
  
  
-// client.connect(options);
+//  client.connect(options);
 
  //Unsubscribe old all topics
 // client.unsubscribe('#');

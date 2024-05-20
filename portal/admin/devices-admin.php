@@ -263,6 +263,21 @@ $id  =   0;
             <label class="col-form-label">Coin Nick Name:</label>
             <input class="form-control" type="text" id="coin_nickname" name="coin_nickname"  value="" placeholder="Coin nick name" style="margin-left:3px"/>
             </div>
+            <div class="form-group">
+              <label class="col-form-label">Coin Placement:</label>
+              <div>
+                <input type="radio" id="coin_placement" name="coin_placement" value="door" checked>
+                <label for="door">Door</label>
+              </div>
+              <div>
+                <input type="radio" id="coin_placement" name="coin_placement" value="shutter">
+                <label for="shutter">Shutter</label>
+              </div>
+              <div>
+                <input type="radio" id="coin_placement" name="coin_placement" value="gate">
+                <label for="gate">Gate</label>
+              </div>
+            </div>
             <input class="form-control" type="hidden" id="userIdForCoinAdd" name="userIdForCoinAdd"  value="<?php echo $_GET['uid']; ?>" placeholder="Coin nick name" style="margin-left:3px" hidden/>
           </form>
         </div>
