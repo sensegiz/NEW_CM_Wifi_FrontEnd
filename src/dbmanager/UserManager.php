@@ -269,7 +269,6 @@ class UserManager {
      */
     function setDeviceThreshold($inData) {
         
-
         $db = new ConnectionManager();
         $generalMethod = new GeneralMethod();
         $curl     = new CurlRequest();

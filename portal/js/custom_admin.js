@@ -181,7 +181,7 @@ function getInvitedUsers() {
                     + '<td>' + date + '</td>'
                     + '<td><input class = "updateCoinOfflineTimeText" placeholder="' + coinofflinetime + '" data-uid="' + uid + '  type="number"/> &nbsp; <button data-uid="' + uid + '" class = "updateCoinOfflineTime" type="submit">Submit</button></td>'
                     + '<td><span class="editUser" data-email="' + email + '" data-phone="' + phone + '" data-uid="' + uid + '"><img src="../img/edit.png" width="16" height="16"/></span></td>'
-                   
+
                     + '<td><span class="updateUser" data-email="' + email + '" data-uid="' + uid + '"><img src="../img/edit.png" width="16" height="14"/></span></td>'
                     + '<td><span class="deleteUser" data-uid="' + uid + '"><img src="../img/delete-icon-png-19.jpg" width="16" height="14"/></span></td>'
                     //+'<td>a</td>'
@@ -216,31 +216,31 @@ function getInvitedUsers() {
     });
 }
 
-function updateCoinOfflineTime(uid,value) {
-  
+function updateCoinOfflineTime(uid, value) {
+
     var postdata = {
-      u_id:uid,
-      coinofflinetime: value,
+        u_id: uid,
+        coinofflinetime: value,
     };
-    
-    console.log("----post data---> ",postdata);
-  
+
+    console.log("----post data---> ", postdata);
+
     $.ajax({
-      url: basePathAdmin + apiUpdateCoinOfflineTime,
-      type: 'POST',     
-      data: JSON.stringify(postdata),        
-      contentType: 'application/json; charset=utf-8',
-      dataType: 'text',
-      async: false,                           
-      beforeSend: function (xhr){                                
-          xhr.setRequestHeader("admin", 'ADMIN');
-      },
-      success: function(data, textStatus, xhr) {
-          console.log(data);
-          
-      }
-  });
-  }
+        url: basePathAdmin + apiUpdateCoinOfflineTime,
+        type: 'POST',
+        data: JSON.stringify(postdata),
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'text',
+        async: false,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("admin", 'ADMIN');
+        },
+        success: function (data, textStatus, xhr) {
+            console.log(data);
+
+        }
+    });
+}
 
 /*
  * Function 			: getAdminGateways()
@@ -540,6 +540,22 @@ function getAdminDevices(gateway_id) {
                             + '<td>' + firmware_type + '</td>'
                             + '<td>' + firmware_version + '</td>'
                             + '<td>' + restore_btn + '</td>'
+                            + "</td>" +
+                            '<td><input class="updateSensorIdInput" placeholder="Enter Sensor Id" type="number"/> &nbsp; <button class="updateSensorId" type="submit" data-gateway="' +
+                            gateway_id +
+                            '" data-device="' +
+                            device_id +
+                            '">Submit</button></td>' +
+                            '<td><input class="updateStatusinMinInput" placeholder="Enter Status in Min" type="number"/> &nbsp; <button class="updateStatusinMin" type="submit" data-gateway="' +
+                            gateway_id +
+                            '" data-device="' +
+                            device_id +
+                            '">Submit</button></td>' +
+                            '<td><input class="sendMeshIdInput" placeholder="Enter Mesh ID" type="number"/> &nbsp; <button class="sendMeshId" type="submit" data-gateway="' +
+                            gateway_id +
+                            '" data-device="' +
+                            device_id +
+                            '">Submit</button></td>'
                             + '</tr>';
                     });
                 }
@@ -557,6 +573,146 @@ function getAdminDevices(gateway_id) {
 
     });
 }
+
+$(document).on("click", ".updateSensorId", function (e) {
+    e.preventDefault();
+    $('.success').html('');
+    $('.error,.error-tab').html('');
+    var gatewayId = $('#new_gateway_id').val();
+    var deviceId = $(this).data('device');
+    var sensorId = $(this).siblings(".updateSensorIdInput").val();
+    console.log("updateSensorId---> ", gatewayId);
+    console.log("deviceId->>>", deviceId)
+    console.log("sensorId->>>", sensorId)
+
+    var postdata = {
+        gatewayId: gatewayId,
+        Senseor: sensorId,
+        deviceId: deviceId
+    }
+    console.log("postdata  SensorId==", postdata)
+    $.ajax({
+        url: "https://cm.sensegiz.com:9000/setSensorId",
+        type: 'POST',
+        data: JSON.stringify(postdata),
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        async: false,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("admin", 'ADMIN');
+        },
+        success: function (data, textStatus, xhr) {
+            console.log('data', data);
+            if (xhr.status == 200 && textStatus == 'success') {
+                if (data.status == 'success') {
+                    alert('Sensor Id Updated Successfully');
+                    window.location.href = "gateways-admin.php";
+                    //return false;
+                }
+            }
+        },
+        error: function (errData, status, error) {
+            var resp = errData.responseJSON;
+            $('.error').html(resp.description);
+        }
+    });
+
+
+});
+
+$(document).on("click", ".updateStatusinMin", function (e) {
+    e.preventDefault();
+    $('.success').html('');
+    $('.error,.error-tab').html('');
+    var gatewayId = $('#new_gateway_id').val();
+    var deviceId = $(this).data('device');
+    var sensorId = $(this).siblings(".updateStatusinMinInput").val();
+    console.log("updateStatusinMin Gateway---> ", gatewayId);
+    console.log("deviceId->>>", deviceId)
+    console.log("sensorId->>>", sensorId)
+
+    var postdata = {
+        gatewayId: gatewayId,
+        status: sensorId,
+        deviceId: deviceId
+    }
+    console.log("postdata  Status Min==", postdata)
+    $.ajax({
+        url: "https://cm.sensegiz.com:9000/setStatusInMin",
+        type: 'POST',
+        data: JSON.stringify(postdata),
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        async: false,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("admin", 'ADMIN');
+        },
+        success: function (data, textStatus, xhr) {
+            console.log('data', data);
+            if (xhr.status == 200 && textStatus == 'success') {
+                if (data.status == 'success') {
+                    alert('Sensor Id Updated Successfully');
+                    window.location.href = "gateways-admin.php";
+                    //return false;
+                }
+            }
+        },
+        error: function (errData, status, error) {
+            var resp = errData.responseJSON;
+            $('.error').html(resp.description);
+        }
+    });
+
+
+});
+
+
+
+$(document).on("click", ".sendMeshId", function (e) {
+    e.preventDefault();
+    $('.success').html('');
+    $('.error,.error-tab').html('');
+    var gatewayId = $('#new_gateway_id').val();
+    var deviceId = $(this).data('device');
+    var meshId = $(this).siblings(".sendMeshIdInput").val();
+    console.log("Send MeshId Gateway---> ", gatewayId);
+    console.log("deviceId->>>", deviceId)
+    console.log("meshId->>>", meshId)
+
+    var postdata = {
+        gatewayId: gatewayId,
+        meshId: meshId,
+        deviceId: deviceId
+    }
+    console.log("postdata  mesh==", postdata)
+    $.ajax({
+        url: "https://cm.sensegiz.com:9000/setMeshid",
+        type: 'POST',
+        data: JSON.stringify(postdata),
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        async: false,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("admin", 'ADMIN');
+        },
+        success: function (data, textStatus, xhr) {
+            console.log('data', data);
+            if (xhr.status == 200 && textStatus == 'success') {
+                if (data.status == 'success') {
+                    alert('Mesh Id Updated Successfully');
+                    window.location.href = "gateways-admin.php";
+                    //return false;
+                }
+            }
+        },
+        error: function (errData, status, error) {
+            var resp = errData.responseJSON;
+            $('.error').html(resp.description);
+        }
+    });
+
+
+});
 
 
 
@@ -1466,7 +1622,7 @@ $(document).on("click", ".btnAddDevices", function (e) {
     var coin_mac_id = $('#coin_mac_id').val();
     var coin_nickname = $('#coin_nickname').val();
     var coin_placement = $('input[name="coin_placement"]:checked').val();
-    console.log("------coin_placement-----",coin_placement);
+    console.log("------coin_placement-----", coin_placement);
     var postdata;
     if (onlyGateway == "true") {
         user_id = $('#txtgatewayUserChange').val();
@@ -1482,7 +1638,7 @@ $(document).on("click", ".btnAddDevices", function (e) {
             gateway_id: gateway_id,
             device_mac_address: coin_mac_id,
             nick_name: coin_nickname,
-            coin_location:coin_placement
+            coin_location: coin_placement
         }
         apiPathForDevices = 'devices';
     }

@@ -63,6 +63,79 @@ $id  =   0;
   border-color: #65bf05;
   background-color: #DFF2BF;
 }
+
+.updateSensorIdInput {
+    width: 100%;
+    max-width: 300px;
+    padding: 5px;
+    margin: 5px 0;
+    box-sizing: border-box;
+    font-size: 10px;
+    color: #333;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .updateSensorIdInput:focus {
+    border-color: #66afe9;
+    box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+    outline: none;
+  }
+
+  .updateSensorIdInput::placeholder {
+    color: #000;
+  }
+
+  .updateStatusinMinInput {
+    width: 100%;
+    max-width: 300px;
+    padding: 5px;
+    margin: 5px 0;
+    box-sizing: border-box;
+    font-size: 10px;
+    color: #333;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .updateStatusinMinInput:focus {
+    border-color: #66afe9;
+    box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+    outline: none;
+  }
+
+  .updateStatusinMinInput::placeholder {
+    color: #000;
+  }
+
+  .sendMeshIdInput {
+    width: 100%;
+    max-width: 300px;
+    padding: 5px;
+    margin: 5px 0;
+    box-sizing: border-box;
+    font-size: 10px;
+    color: #333;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .sendMeshIdInput:focus {
+    border-color: #66afe9;
+    box-shadow: 0 0 8px rgba(102, 175, 233, 0.6);
+    outline: none;
+  }
+
+  .sendMeshIdInput::placeholder {
+    color: #000;
+  }
+  
 /* Update Gateway Modal Ends */
 
 </style>
@@ -120,6 +193,9 @@ $id  =   0;
                                     <th>Firmware Type</th>
                                     <th>Firmware Version</th> 
                                     <th>Delete</th>
+                                    <th>Set Sensor ID</th>
+                                   <th>Set Status in Min</th>
+                                   <th>Change Mesh Id For Coin</th>
                                 </tr>
                                 <tbody class="users" id="adminDevicessList">
                                    
