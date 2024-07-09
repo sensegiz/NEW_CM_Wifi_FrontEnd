@@ -1456,6 +1456,24 @@ public function getDailyReportData($userID, $gateway_id, $device_id, $sensor, $s
         return $aResult;
     }
 
+    public function updateWhatsAppAlert($userId,$inData)
+    {
+        $userManager = new UserManager();        
+        $aResult = array();
+        $aList   = array();
+        $aList   = $userManager->updateWhatsAppAlert($userId,$inData);
+            if ($aList[JSON_TAG_STATUS] == 0) {
+                $aResult = array(JSON_TAG_STATUS => JSON_TAG_SUCCESS,
+                    JSON_TAG_RECORDS=>$aList[JSON_TAG_RESULT]);
+            } elseif ($aList[JSON_TAG_STATUS] == 1) {
+                $aResult = $this->httpStatusServer();
+            } elseif ($aList[JSON_TAG_STATUS] == 2) { //MANDATORY FIELD REQUIRED
+                $aResult = $this->responseResult(ERRCODE_ERROR,MANDATORY_FIELD_REQUIRED);
+            } 
+
+        return $aResult;
+    }
+
     
 
     public function getGatewayDetail($gatewayId){

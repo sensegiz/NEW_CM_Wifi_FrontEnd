@@ -4379,6 +4379,39 @@ public function getDailyReportData($userID, $gateway_id, $device_id, $deviceType
         }
         return $aList;
     }
+
+    function updateWhatsAppAlert($userId, $inData)
+    {
+        $db = new ConnectionManager();
+        $generalMethod = new GeneralMethod();
+        $curl = new CurlRequest();
+
+        try {
+            $startTime = $inData['startTime'];
+            $endTime = $inData['endTime'];
+
+
+
+            $response = FALSE;
+
+            $query = "UPDATE users SET starttime=:starttime , endtime=:endtime "
+                . " WHERE user_id=:user_id";
+            $db->query($query);
+            $db->bind(':user_id', $userId);
+            $db->bind(':starttime', $startTime);
+            $db->bind(':endtime', $endTime);
+
+            if ($db->execute()) {
+                $response = TRUE;
+            }
+
+            $aList[JSON_TAG_RESULT] = $response;
+            $aList[JSON_TAG_STATUS] = 0;
+        } catch (Exception $e) {
+            $aList[JSON_TAG_STATUS] = 1;
+        }
+        return $aList;
+    }
     
     
     /*

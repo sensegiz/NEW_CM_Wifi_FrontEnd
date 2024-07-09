@@ -1292,6 +1292,27 @@ public function getDailyReportData($userID, $gateway_id, $device_id, $sensor, $s
         
     } 
 
+    public function updateWhatsAppAlert(){
+       
+        $userModel   = new UserModel();
+        $genMethod   = new GeneralMethod();
+       
+        $instance   = \Slim\Slim::getInstance();
+        $bodyData   = $instance->request()->getBody();
+        $inData     = json_decode($bodyData, true);
+        
+        $headers    = $instance->request()->headers();
+        $userId     = $headers['uid'];         
+
+        if (is_array($inData)) {
+                $result = $userModel->updateWhatsAppAlert($userId,$inData);   
+        } else {  
+                $result = $this->paramMissing($instance);                    
+        }
+        $genMethod->generateResult($userId);
+        
+    } 
+
 
     /*
      Function            : getGatewayDetail()

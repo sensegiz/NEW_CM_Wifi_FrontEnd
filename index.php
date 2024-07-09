@@ -305,6 +305,7 @@ require 'library/vendor/autoload.php';
     
     // Update Password from User side
     $Rest->post('/user/update-gateway-nickname',array($UserCtr, 'updateGatewayNickName'));
+    $Rest->post('/user/update-whatsapp-alert-time',array($UserCtr, 'updateWhatsAppAlert'));
 
     // Get Gateway Detail
     $Rest->get('/user/gateway-detail/:gatewayId',array($AdminCtr,'getGatewayDetail'));

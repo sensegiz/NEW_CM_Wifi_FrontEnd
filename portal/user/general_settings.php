@@ -449,6 +449,28 @@ input[type=number]::-webkit-outer-spin-button {
 									</form>
 								</div>
 							</div>
+
+							<div class="column">
+					<div class="card" style="margin-bottom:20px">
+						<form class="pure-form">
+							<fieldset>
+								<label for="daily_report">Set Whatsapp Alert Time:</label>
+								<br><br>
+
+								<label for="start_time">Start Time:</label>
+								<input type="time" id="start_time" name="start_time">
+								<br>
+
+								<label for="end_time">End Time:</label>
+								<input type="time" id="end_time" name="end_time">
+								<br>
+
+								<button type="submit"
+									class="btn btn-primary btn-md submit_whatapp_alert_time">Submit</button>
+							</fieldset>
+						</form>
+					</div>
+				</div>
 							<!-- end -->
 
 								<div class="column1">
@@ -548,7 +570,7 @@ var selected_rms_values = $(".rms_values :selected").val();
 var selected_temp_unit = $(".temp_unit :selected").val();
 
 var apiUrlUpdateNewPassword = "update-new-password";
-
+var apiUrlUpdateWhatsappAlertTime = "update-whatsapp-alert-time";
 
 $(document).on("click", ".dateformat", function(e){
 
@@ -2166,6 +2188,71 @@ $(document).on("click", ".update_gnickname", function(e){
         }); 
     }
 	
+});
+
+$(document).on("click", ".submit_whatapp_alert_time", function (e) {
+
+e.preventDefault();
+	
+	var startTime = $("#start_time").val();
+	var endTime = $("#end_time").val();
+	
+	if (!startTime) {
+		alert("Start Time cannot be empty");
+		return;
+	}
+	
+	if (!endTime) {
+		alert("End Time cannot be empty");
+		return;
+	}
+
+	var uid = $('#sesval').data('uid');
+	
+	// Additional validation can be added here
+	
+	// If validation passes, you can proceed with further actions
+	console.log("Start Time: " + startTime);
+	console.log("End Time: " + endTime);
+	console.log("uid--> ",uid);
+	var apikey = $('#sesval').data('key');
+
+
+	var postdata = {
+		uid: uid,
+		startTime: startTime,
+		endTime: endTime
+	}
+
+	$.ajax({
+
+		url: basePathUser + apiUrlUpdateWhatsappAlertTime,
+		headers: {
+			'uid': uid,
+			'Api-Key': apikey
+		},
+		type: 'POST',
+		data: JSON.stringify(postdata),
+		contentType: 'application/json; charset=utf-8',
+		dataType: 'json',
+		async: false,
+		beforeSend: function (xhr) {
+			xhr.setRequestHeader("uid", uid);
+			xhr.setRequestHeader("Api-Key", apikey);
+		},
+		success: function (data, textStatus, xhr) {
+
+			if (xhr.status == 200 && textStatus == 'success') {
+				alert('WhatsApp Alert Time Updated Successfully.');
+				$('.success').html('WhatsApp Alert Time  Updated Successfully.');
+				setTimeout(function () { $('.success').html(''); }, 5000);
+			}
+			window.location.reload();
+		}
+
+	});
+
+
 });
 
 /* Ends Gateway Nick Name */
