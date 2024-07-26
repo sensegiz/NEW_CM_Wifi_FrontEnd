@@ -458,11 +458,11 @@ input[type=number]::-webkit-outer-spin-button {
 								<br><br>
 
 								<label for="start_time">Start Time:</label>
-								<input type="time" id="start_time" name="start_time">
+								<input type="time" class="start_time" id="start_time" name="start_time">
 								<br>
 
 								<label for="end_time">End Time:</label>
-								<input type="time" id="end_time" name="end_time">
+								<input type="time" class="end_time" id="end_time" name="end_time">
 								<br>
 
 								<button type="submit"

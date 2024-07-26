@@ -631,6 +631,10 @@ $(document).on("click", ".updateStatusinMin", function (e) {
     console.log("deviceId->>>", deviceId)
     console.log("sensorId->>>", sensorId)
 
+    if(sensorId<=0 ||sensorId>60){
+        alert("Status in Min should be greater then 0 & less then 61");
+    }
+
     var postdata = {
         gatewayId: gatewayId,
         status: sensorId,

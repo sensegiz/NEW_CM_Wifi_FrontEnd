@@ -3193,7 +3193,7 @@ public function getGeneralSettings($userId){
         $db       = new ConnectionManager();
 
         try {      
-            $sQuery = " SELECT  date_format, rms_values, temp_unit, mail_alert_restriction, mail_restriction_limit, mail_restriction_interval"
+            $sQuery = " SELECT  date_format, rms_values, temp_unit, mail_alert_restriction, mail_restriction_limit, mail_restriction_interval,starttime,endtime"
                     . " FROM users"                    
                     . " WHERE user_id=:user_id AND is_deleted =0";       
 
@@ -3209,13 +3209,17 @@ public function getGeneralSettings($userId){
                 $mail_alert_restriction = $value['mail_alert_restriction'];
                 $mail_restriction_limit = $value['mail_restriction_limit'];
                 $mail_restriction_interval = $value['mail_restriction_interval'];
+                $starttime = $value['starttime'];
+                $endtime = $value['endtime'];
 		   
 				$finalArr[$key]['date_format'] = $date_format;
 				$finalArr[$key]['rms_values'] = $rms_values;
 				$finalArr[$key]['temp_unit'] = $temp_unit;        
                 $finalArr[$key]['mail_restriction_limit'] = $mail_restriction_limit;
                 $finalArr[$key]['mail_alert_restriction'] = $mail_alert_restriction;  
-                $finalArr[$key]['mail_restriction_interval'] = $mail_restriction_interval;            
+                $finalArr[$key]['mail_restriction_interval'] = $mail_restriction_interval;        
+                $finalArr[$key]['starttime'] = $starttime;   
+                $finalArr[$key]['endtime'] = $endtime;       
 				$finalArr[$key]['generalsettings']   = $this->getUserSettings($db,$userId);
 				$finalArr[$key]['dailyreportsettings']   = $this->getDailyReportSettings($db,$userId);
 
