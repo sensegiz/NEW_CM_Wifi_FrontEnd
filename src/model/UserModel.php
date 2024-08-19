@@ -481,12 +481,12 @@ class UserModel{
       Input/output param  : $aResult
       Return              : Returns array.
      */
-    public function createLocation($userId,$inData){
+    public function createLocation($userId,$inData,$lat,$long){
         
         $userManager = new UserManager();        
         $aResult = array();
         $aList   = array();
-        $aList   = $userManager->createLocation($userId,$inData);
+        $aList   = $userManager->createLocation($userId,$inData,$lat,$long);
             if ($aList[JSON_TAG_STATUS] == 0) {
                 $aResult = array(JSON_TAG_STATUS => JSON_TAG_SUCCESS,
                     JSON_TAG_RECORDS=>$aList[JSON_TAG_RESULT]);
@@ -637,6 +637,20 @@ class UserModel{
                 $aResult = $this->httpStatusServer();
             }
             return $aResult;
+    }
+
+    public function getUserLocationLatLong($userId, $locationId){
+        $userManager = new UserManager();
+        $aResult = array();
+        $aList = array();
+        $aList = $userManager->getUserLocationLatLong($userId, $locationId);
+            if ($aList[JSON_TAG_STATUS] == 0) {
+                $aResult = array(JSON_TAG_STATUS => JSON_TAG_SUCCESS,
+                    JSON_TAG_RECORDS => $aList[JSON_TAG_RESULT]);
+            } elseif ($aList[JSON_TAG_STATUS] == 1) {
+                $aResult = $this->httpStatusServer();
+            }
+        return $aResult;
     }
 
     /* Function         : renderAlert(gwId, devId)

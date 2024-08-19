@@ -353,6 +353,10 @@ $id  =   0;
                 <input type="radio" id="coin_placement" name="coin_placement" value="gate">
                 <label for="gate">Gate</label>
               </div>
+              <div>
+                <input type="radio" id="coin_placement" name="coin_placement" value="">
+                <label for="gate">No Location</label>
+              </div>
             </div>
             <input class="form-control" type="hidden" id="userIdForCoinAdd" name="userIdForCoinAdd"  value="<?php echo $_GET['uid']; ?>" placeholder="Coin nick name" style="margin-left:3px" hidden/>
           </form>

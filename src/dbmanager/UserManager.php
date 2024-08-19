@@ -381,11 +381,13 @@ class UserManager {
                     		$data_arr['threshold_value']     =  $threshold_value;
 
                     		$data_arr['dynamic_id']     =  $dynamic_id;
+                           
                     
                     		$data_arr['topic']         =  TOPIC_SET_THRESHOLD;
             
                 		$url        =  URL_END_POINT.'sensegiz-mqtt/publish.php';
-                
+                       
+                      
                 		$response   =  $curl->postRequestData($url, $data_arr);
 
 				 		
@@ -394,12 +396,13 @@ class UserManager {
                        		. "VALUES (:gatewayId, :gateway_mac_id, :deviceId, :device_type, 'SET', :threshold, :dynamic_id, 0)";
         		
 			$db->query($query);
-        		$db->bind(':gatewayId', $gatewayId);
-        		$db->bind(':gateway_mac_id', $gateway_mac_id);
+        	$db->bind(':gatewayId', $gatewayId);
+        	$db->bind(':gateway_mac_id', $gateway_mac_id);
 			$db->bind(':deviceId', $deviceId);
 			$db->bind(':device_type', $device_type);
 			$db->bind(':threshold', $threshold_value);
-			$db->bind(':dynamic_id', $dynamic_id);
+			// $db->bind(':dynamic_id', $dynamic_id);
+            $db->bind(':dynamic_id', !empty($dynamic_id) ? $dynamic_id : $deviceId);
 
 			if($db->execute()){
 				$response = 'TRUE';
@@ -1298,7 +1301,7 @@ function checkPendingRequest($db, $gatewayId, $deviceId, $device_type, $req_type
       Input/output param  : Nil
       Return              : Returns array.
      */
-    function createLocation($userId,$inData) {
+    function createLocation($userId,$inData,$lat,$long) {
         $db = new ConnectionManager();
         $generalMethod = new GeneralMethod();
         $curl     = new CurlRequest();
@@ -1362,13 +1365,15 @@ function checkPendingRequest($db, $gatewayId, $deviceId, $device_type, $req_type
                 $rowId  = $Id;
             }
             else{
-                $query = "INSERT INTO user_locations(user_id, location_name, location_description, location_image) "
-                        . "VALUES (:user_id, :location_name, :location_description, :location_image)  RETURNING id";
+                $query = "INSERT INTO user_locations(user_id, location_name, location_description, location_image,latitude,longitude) "
+                        . "VALUES (:user_id, :location_name, :location_description, :location_image,:latitude,:longitude)  RETURNING id";
                 $db->query($query);
                 $db->bind(':user_id', $userId);
                 $db->bind(':location_name', $location_name);                
             	$db->bind(':location_description', $location_description);
             	$db->bind(':location_image', $location_image);
+                $db->bind(':latitude', $lat);
+                $db->bind(':longitude', $long );
                 $res = $db->resultSet();    
                 $rowId  = $res[0][id];
 
@@ -1726,6 +1731,29 @@ function getCoin($gatewayId, $userId) {
                 $db->bind(':user_id',$userId);
                 $db->bind(':location_id',$locationId);
                 $row = $db->resultSet();
+            $aList[JSON_TAG_RESULT] = $row;
+            $aList[JSON_TAG_STATUS] = 0;
+        } catch (Exception $e) {
+            $aList[JSON_TAG_STATUS] = 1;
+        }
+        return $aList;
+    }
+
+    function getUserLocationLatLong($userId, $locationId)
+    {
+        $db = new ConnectionManager();
+        $curl = new CurlRequest();
+
+        try {
+
+            $sQuery = " SELECT *"
+            . " FROM user_locations"
+            . " WHERE id=:id AND is_deleted =0";
+
+            $db->query($sQuery);
+            $db->bind(':user_id', $userId);
+            $db->bind(':id', $locationId);
+            $row = $db->resultSet();
             $aList[JSON_TAG_RESULT] = $row;
             $aList[JSON_TAG_STATUS] = 0;
         } catch (Exception $e) {

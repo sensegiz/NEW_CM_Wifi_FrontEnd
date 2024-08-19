@@ -408,7 +408,7 @@ class UserController {
       Input/output param  : Array
       Return              : Returns array.
      */
-    public function createLocation(){
+    public function createLocation(){ 
        
         $userModel   = new UserModel();
         $genMethod   = new GeneralMethod();
@@ -419,14 +419,15 @@ class UserController {
         
         $headers    = $instance->request()->headers();
         $userId     = $headers['uid'];         
-
+        $lat     = $headers['lat'];  
+        $long     = $headers['long']; 
         if (is_array($inData) && array_key_exists(JSON_TAG_LOCATION_NAME, $inData)
         && array_key_exists(JSON_TAG_LOCATION_DESCRIPTION, $inData)
         && array_key_exists(JSON_TAG_LOCATION_IMAGE, $inData)
         && array_key_exists(JSON_TAG_GATEWAY_ID, $inData)
                 && array_key_exists(JSON_TAG_ID, $inData)) {
 
-                $result = $userModel->createLocation($userId,$inData);   
+                $result = $userModel->createLocation($userId,$inData,$lat,$long);   
         } else {  
                 $result = $this->paramMissing($instance);                    
         }
@@ -558,6 +559,19 @@ class UserController {
         $headers    = $instance->request()->headers();
         $userId     = $headers['uid'];
         $result = $userModel->getGatewayLocation($userId, $locationId);
+        $genMethod->generateResult($result);   
+    }
+    
+    
+    public function getUserLocationLatLong($location_id){
+
+        $userModel = new UserModel();
+        $genMethod  = new GeneralMethod();
+        
+        $instance   = \Slim\Slim::getInstance();
+        $headers    = $instance->request()->headers();
+        $userId     = $headers['uid'];        
+        $result = $userModel->getUserLocationLatLong($userId, $location_id);
         $genMethod->generateResult($result);   
     } 
 

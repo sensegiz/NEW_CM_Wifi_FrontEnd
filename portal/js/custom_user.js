@@ -26,6 +26,8 @@ var apiUrlDeleteUserLocation = 'delete-user-location';
 
 var apiUrlGetCoin = 'get-coin';
 
+var apiUrlLocationLatLong = 'get-user-location-lat-long';
+
 var apiUrlAddGetCoin = 'add-get-coin';
 
 var apiUrlGetLocation = 'get-location';
@@ -2124,6 +2126,8 @@ $(document).on("click", ".setTh", function (e) {
         threshold: threshold
     }
 
+    console.log("post data --->   ",postdata)
+
 
 
     var uid = $('#sesval').data('uid');
@@ -3612,7 +3616,7 @@ $(document).on("click", ".monitorLocation", function (e) {
     localStorage.setItem("location_id", location_id);
     localStorage.setItem("location_image", location_image);
 
-    window.location = "map_monitor.php";
+    window.location = "map_monitor2.php";
 
 });
 
@@ -3634,7 +3638,7 @@ $(document).on("click", ".addCoinLocation", function (e) {
     localStorage.setItem("location_id", location_id);
     localStorage.setItem("location_image", location_image);
 
-    window.location = "map_editor.php";
+    window.location = "map_editor2.php";
 
 });
 
@@ -3859,6 +3863,74 @@ $(document).on("click", ".addCoin", function (e) {
 });
 
 
+function getStoredMapLatLong(location_id,monitor = false){
+
+    console.log("getStoredMapLatLong--->  ",location_id);
+
+    var uid = $('#sesval').data('uid');
+    var apikey = $('#sesval').data('key');
+
+    if (uid != '' && apikey != '') {
+
+        $.ajax({
+            url: basePathUser + apiUrlLocationLatLong + '/' + location_id,
+            headers: {
+                'uid': uid,
+                'Api-Key': apikey
+            },
+            type: 'GET',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            async: false,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("uid", uid);
+                xhr.setRequestHeader("Api-Key", apikey);
+            },
+            success: function (data, textStatus, xhr) {
+                console.log("getStoredMapLatLong---> response --> ", data);
+
+                if (data.records && data.records.length > 0) {
+                    var lat = parseFloat(data.records[0].latitude);
+                    var lng = parseFloat(data.records[0].longitude);
+
+                    if (!isNaN(lat) && !isNaN(lng)) {
+                        // Center the map to the location
+                        map.setView([lat, lng], 30);
+                        // map.setZoom(12); 
+
+                        if(!monitor){
+                            L.marker([lat, lng]).addTo(map).on('click', function (e) {
+                                var popup = new L.Rrose({ offset: new L.Point(0, 10) })
+                                    .setLatLng([lat, lng])
+                                    .setContent(popUpForm)
+                                    .openOn(map);
+                            });
+                        }
+                        // Add the marker to the map
+                        
+
+                        console.log("Map centered at:", lat, lng);
+                    } else {
+                        console.error("Invalid latitude or longitude values.");
+                    }
+                } else {
+                    console.error("No records found in the response.");
+                }
+            },
+            error: function (errData, status, error) {
+                if (errData.status == 401) {
+                    var resp = errData.responseJSON;
+                    var description = resp.description;
+                    $('.logout').click();
+                    alert(description);
+
+                }
+            }
+        });
+
+    }
+ 
+}
 
 function getCoin(gatewayId) {
     var uid = $('#sesval').data('uid');
@@ -4070,13 +4142,125 @@ $('#addImage').on('click', function () {
 
 });
 
+$('#addMap').on('click', function () {
+    
+    var uid = $('#sesval').data('uid');
+    var apikey = $('#sesval').data('key');
+
+
+    $('.error').html('');
+    $('.loc-msg').html('');
+
+    
+    var location_name = $('#location_name').val();
+    var location_description = $('#location_description').val();
+    var location_image = $('#location_image').val();
+    
+    console.log("Hello")
+
+  
+
+    var edit_id = $('#edit_id').val();
+  
+
+    var gateways = [];
+    $.each($(".gateway-list option:selected"), function () {
+        gateways.push($(this).val());
+    });
+
+
+    if (location_name == '') {
+        alert("*Please enter a location name.");
+        $('.error').html('*Please enter a location name.');
+        $('#location_name').focus();
+        return false;
+    }
+
+    if (location_description == '') {
+        alert("*Please enter a description for the location");
+        $('.error').html('*Please enter a description for the location');
+        $('#location_description').focus();
+        return false;
+    }
+
+   
+
+    if (gateways == "") {
+        alert("*Please assign a gateway to the location");
+        $('.error').html('*Please assign a gateway to the location');
+        return false;
+    }
+
+    var storedLat = localStorage.getItem('latitude');
+    var storedLng = localStorage.getItem('longitude');
+
+    if(storedLat === null && storedLat === undefined && storedLat.trim() === '' &&
+    storedLng === null && storedLng === undefined && storedLng.trim() === ''){
+        alert("*Please Select Lat & Long from below Map");
+        return false;
+    }
+    
+
+    console.log("gateways--->",gateways);
+    
+    
+
+
+    
+    //     url: 'upload.php', // point to server-side PHP script 
+    //     dataType: 'text', // what to expect back from the PHP script
+    //     cache: false,
+    //     contentType: false,
+    //     processData: false,
+    //     data: form_data,
+    //     type: 'post',
+
+    //     success: function (response) {
+    //         var fn = response.split(":");
+
+
+    //         var res = response.split('.', 1)[0];
+    //         if (res == "File already exists") {
+    //             $('.loc-msg').html('');
+    //             $('.error').html('*File name already exists! Please choose a different name for the file.');
+    //             return false;
+
+    //         }
+    //         else {
+    //             var l_image = fn[1];
+                var postdata = {
+                    location_name: location_name,
+                    location_description: location_description,
+                    location_image: "Null",
+                    gateway_id: gateways,
+                    user_id: uid,
+                    id: edit_id,
+                    latitude:storedLat,
+                    longitude:storedLng
+                }
+
+    //             $('#apikey').html(apikey);
+    //             $('#uid').html(uid);
+
+                 aadLocation(postdata);
+
+    //         }
+
+    //     },
+    //     error: function (response) {
+    //         $('.error').html(response); // display error response from the PHP script
+    //     }
+    // });
+
+});
+
 
 
 function aadLocation(postdata) {
     var uid = $('#sesval').data('uid');
     var apikey = $('#sesval').data('key');
 
-
+    console.log("post Data---> ",postdata)
     $.ajax({
 
         url: basePathUser + apiUrlAddLocation,
@@ -4088,6 +4272,8 @@ function aadLocation(postdata) {
         beforeSend: function (xhr) {
             $('.addLocation').val('Adding Location');
             xhr.setRequestHeader("uid", uid);
+            xhr.setRequestHeader("lat", postdata.latitude);
+            xhr.setRequestHeader("long", postdata.longitude);
             xhr.setRequestHeader("Api-Key", apikey);
         },
         success: function (data, textStatus, xhr) {

@@ -385,7 +385,7 @@ color:
 		
 
 		 <li><a href="map-studio.php">Map Center</a></li> 
-		                         
+         <li><a href="map-studio2.php">Map Center 2</a></li>   
 		<li><a href="accelerations_types.php">Vibration Monitoring</a></li>
                               
 

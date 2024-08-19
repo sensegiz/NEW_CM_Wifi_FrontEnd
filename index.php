@@ -181,6 +181,8 @@ require 'library/vendor/autoload.php';
 	//Get Gateway Assigned to User Locations
 	$Rest->get('/user/get-gateway-location/:locationId', array($UserCtr, 'getGatewayLocation'));
 
+        $Rest->get('/user/get-user-location-lat-long/:location_id', array($UserCtr, 'getUserLocationLatLong'));
+
          //Add Coins on the Map
 	$Rest->post('/user/add-coin', array($UserCtr, 'addCoin'));
 
