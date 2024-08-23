@@ -306,16 +306,28 @@ class UserManager {
 		if($device_type == '01' || $device_type == '02')
 		{
 
-			if($threshold_value == 0.001)
-				$threshold_value = 1;
-			else if($threshold_value == 0.1)
-				$threshold_value = 2;
-			else if($threshold_value > 0.001 && $threshold_value < 0.1)
-				$threshold_value = 1;
-			else if($threshold_value > 0.1 && $threshold_value < 0.375)
-				$threshold_value = 2;
-			else if($threshold_value >= 0.375)
-				$threshold_value = ceil($threshold_value * 8);
+            $special_thresholds = [
+                '0.024' => 129,
+                '0.041' => 130,
+                '0.061' => 131,
+                '0.081' => 132
+            ];
+            
+            $threshold_value_str = strval($threshold_value);
+            
+            if (isset($special_thresholds[$threshold_value_str])) {
+                $threshold_value = $special_thresholds[$threshold_value_str];
+            } else if ($threshold_value == 0.001) {
+                $threshold_value = 1;
+            } else if ($threshold_value == 0.1) {
+                $threshold_value = 2;
+            } else if ($threshold_value > 0.001 && $threshold_value < 0.1) {
+                $threshold_value = 1;
+            } else if ($threshold_value > 0.1 && $threshold_value < 0.375) {
+                $threshold_value = 2;
+            } else if ($threshold_value >= 0.375) {
+                $threshold_value = ceil($threshold_value * 8);
+            }
 		}
 		if($device_type == '03' || $device_type == '04')
 		{

@@ -4893,28 +4893,39 @@ function getDashboardCoin(gatewayId) {
 function getAccelerometerValues(threshold_value) {
     var accVal_html = '';
 
-
+    // Add the 0.001 option
     if (threshold_value == 0.001) {
         accVal_html += '<option value="0.001" selected>0.001</option>';
     } else {
         accVal_html += '<option value="0.001">0.001</option>';
     }
-
+    
+    // Add the new options: 0.024, 0.041, 0.061, and 0.081
+    var additionalOptions = [0.024, 0.041, 0.061, 0.081];
+    additionalOptions.forEach(function (value) {
+        if (threshold_value == value) {
+            accVal_html += '<option value="' + value + '" selected>' + value + '</option>';
+        } else {
+            accVal_html += '<option value="' + value + '">' + value + '</option>';
+        }
+    });
+    
+    // Add the 0.1 option
     if (threshold_value == 0.1) {
         accVal_html += '<option value="0.1" selected>0.1</option>';
     } else {
         accVal_html += '<option value="0.1">0.1</option>';
     }
-
-
+    
+    // Generate the remaining options from 0.375 to 15.875
     for (i = 0.375; i <= 15.875; i = i + 0.125) {
         if (threshold_value == i) {
             accVal_html += '<option value="' + i + '" selected>' + i + '</option>';
-        }
-        else {
+        } else {
             accVal_html += '<option value="' + i + '">' + i + '</option>';
         }
     }
+    
     return accVal_html;
 }
 

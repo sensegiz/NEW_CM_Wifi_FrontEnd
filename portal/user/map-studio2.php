@@ -50,10 +50,39 @@ include_once('page_header_user1.php');
 
 			
 			<h1>Map Center</h1>
+
+	
 				
                 	<p id="">Visualise Coins</p>
 					
 			<hr>
+
+			<div  id="map" style="height: 500px;"></div>
+ <!-- Input fields for Latitude and Longitude -->
+ <div>
+        <label for="lat">Latitude:</label>
+        <input type="text" id="lat" value="51.505">
+        <label for="lng">Longitude:</label>
+        <input type="text" id="lng" value="-0.09">
+        <button onclick="updateMap()">Load Location</button>
+    </div>
+</div>
+
+<script>
+        // Retrieve the value from localStorage
+        var storedLat = localStorage.getItem('latitude');
+		var storedLong = localStorage.getItem('longitude');
+		
+
+        // Set the value of the input field
+        if (storedLat) {
+            document.getElementById('lat').value = storedLat.toString();
+			document.getElementById('lng').value = storedLong.toString();
+        }
+    </script>
+
+<hr>
+<hr>
             <div class="detail-content" style="background-color: #fff;margin-top:0px">
                 
                 		<div class="lp-det"style="margin-top:0px">
@@ -122,16 +151,7 @@ include_once('page_header_user1.php');
 
         </div>
 </div>
-<div id="map" style="height: 500px;"></div>
- <!-- Input fields for Latitude and Longitude -->
- <div>
-        <label for="lat">Latitude:</label>
-        <input type="text" id="lat" value="51.505">
-        <label for="lng">Longitude:</label>
-        <input type="text" id="lng" value="-0.09">
-        <button onclick="updateMap()">Load Location</button>
-    </div>
-</div>
+
 
 
 
