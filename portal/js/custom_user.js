@@ -549,6 +549,10 @@ function getFormattedDevicesData(dataArr, tableName, dev_settings, diff) {
                     "CF": "7",
                     "D0": "8",
                     "D1": "9",
+                    "81": 0.024,
+                    "82": 0.041,
+                    "83": 0.061,
+                    "84": 0.081
                 };
 
                 if (thresholdJsonData.hasOwnProperty(realHexThreshold)) {
@@ -565,8 +569,12 @@ function getFormattedDevicesData(dataArr, tableName, dev_settings, diff) {
                         threshold_value = 0.001;
                     else if (threshold_value == 2)
                         threshold_value = 0.1;
-                    else
-                        threshold_value = threshold_value / 8;
+                    else{
+                        if(!thresholdJsonData.hasOwnProperty(realHexThreshold)){
+                            threshold_value = threshold_value / 8;
+                        }
+                        
+                    }
                 }
                 if (device_type == '03' || device_type == '04') {
                     if (thresholdJsonData.hasOwnProperty(realHexThreshold)) {
@@ -3709,7 +3717,7 @@ function renderAlert(gwId, devId, devType, devValue, last_updated) {
                                     .addTo(markersLayer).on('click', function (e) {
                                         map.removeLayer(alertMarker);
                                         var popLocation = [devLat, devLng];
-                                        var popup = new L.Rrose({ offset: new L.Point(0, 10) }).setLatLng(popLocation).setContent(coinDataPop).openOn(map)
+                                        var popup = new L.popup({ offset: new L.Point(0, 10) }).setLatLng(popLocation).setContent(coinDataPop).openOn(map)
                                     });
 
                             }
@@ -4005,7 +4013,7 @@ function getCoin(gatewayId) {
                             var getCoinMarker = L.marker([coin_lat, coin_lng], { icon: icon })
                                 .addTo(map).on('click', function (e) {
 
-                                    var popup = new L.Rrose({ offset: new L.Point(0, 10) }).setLatLng(popLocation).setContent(popUpForm).openOn(map);
+                                    var popup = new L.popup({ offset: new L.Point(0, 10),className: 'custom-popup' }).setLatLng(popLocation).setContent(popUpForm).openOn(map);
                                 });
                         }
                         q++;
@@ -4902,6 +4910,7 @@ function getAccelerometerValues(threshold_value) {
     
     // Add the new options: 0.024, 0.041, 0.061, and 0.081
     var additionalOptions = [0.024, 0.041, 0.061, 0.081];
+ 
     additionalOptions.forEach(function (value) {
         if (threshold_value == value) {
             accVal_html += '<option value="' + value + '" selected>' + value + '</option>';

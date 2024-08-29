@@ -64,6 +64,22 @@
 
 <style>
 
+.custom-popup .leaflet-popup-content-wrapper {
+  font-size: 16px; /* Adjust the font size as needed */
+  background-color: #fff;
+  border-radius: 10px;
+  border: 2px solid #333;
+  padding: 10px;
+}
+
+.custom-popup .leaflet-popup-content {
+  font-size: 18px; /* Increase the font size of the content */
+}
+
+.custom-popup .leaflet-popup-tip {
+  background: #fff;
+}
+
     #map {
 		width: 750px;
 		height: 600px;

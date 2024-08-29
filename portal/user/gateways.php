@@ -410,9 +410,20 @@ include_once ('page_header_user.php');
 					}
 
 					if (request_type == 'SET') {
-						devValue = hexToDec(devValue);
+
+						console.log("devValue___Acceleration", devValue);
+						let thresholdManualRange = ["0.024","0.041","0.061","0.081"];
+
+						if(!thresholdManualRange.includes(devValue)){
+							devValue = hexToDec(devValue);
+						}
+                    
+					
 						if (devType == '01' || devType == '02') {
-							if (devValue == 1)
+							if(devValue == '0.024' || devValue == '0.041'||devValue == '0.061' || devValue == '0.081'){
+
+							}
+							else if (devValue == 1)
 								devValue = 0.001;
 							else if (devValue == 2)
 								devValue = 0.1;
