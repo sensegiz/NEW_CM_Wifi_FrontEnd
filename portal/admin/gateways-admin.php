@@ -109,6 +109,7 @@ label {
                                     <th>Blacklist/ Whitelist</th> 
                         				    <th>Edit Time Factor</th>  
                         				    <th>Delete</th>
+                                    <th>Buzzer</th>
                                 </tr>
                                 <tbody class="users" id="adminGatewaysList">
                                    

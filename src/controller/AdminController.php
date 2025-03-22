@@ -118,6 +118,26 @@ class AdminController {
 
         
     }
+
+    public function updateBuzzerStatus(){
+  
+      
+        $adminModel = new AdminModel();
+        $genMethod  = new GeneralMethod();
+        $instance   = \Slim\Slim::getInstance();
+        $bodyData   = $instance->request()->getBody();
+        $inData     = json_decode($bodyData, true);
+       if (is_array($inData)) {
+            $result = $adminModel->updateBuzzerStatus($inData);
+       } 
+       else { 
+           $result = $this->paramMissing($instance);             
+       }
+
+        $genMethod->generateResult($result); 
+
+        
+    }
     
       /*
       Function            : userCreateNewPassword()

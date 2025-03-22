@@ -2048,7 +2048,37 @@ public function updateTimeFactor($inData){
         return $aList;
     }
 
+    public function updateBuzzerStatus($inData){
+        $db = new ConnectionManager();
+        $db1 = new ConnectionManager();
+        $generalMethod = new GeneralMethod();   
+        $curl     = new CurlRequest();
+        
+        try {       
+            
+            echo " updateBuzzerStatus ", json_encode($inData), "_______   ";
 
+            $gateway_id = $inData['gateway_id'];
+            $buzzer_status= $inData['buzzer_status'];
+           
+            echo "gateway_id: " . $gateway_id . "<br>";
+            echo "buzzer_status:-> " . $buzzer_status . "<br>";
+        
+            $query = " UPDATE user_gateways"
+                . " SET buzzer=:buzzer_status "
+                . " WHERE gateway_id=:gateway_id";
+
+            $db->query($query);
+            $db->bind(':gateway_id', $gateway_id);
+            $db->bind(':buzzer_status', $buzzer_status);
+            $db->execute();
+            $aList[JSON_TAG_STATUS] = 0;
+        } catch (Exception $e) {
+
+            $aList[JSON_TAG_STATUS] = 1;
+        }
+        return $aList;
+    }
 
 
     public function UpdateUser_email($inData){

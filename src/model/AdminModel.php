@@ -727,6 +727,26 @@ public function updateTimeFactor($inData){
         return $aResult;
     } 
 
+    public function  updateBuzzerStatus($inData){
+        $adminManager  = new AdminManager();
+        $aResult      = array();
+        $aList        = array();
+        $aList        = $adminManager-> updateBuzzerStatus($inData);
+        
+        if ($aList[JSON_TAG_STATUS] == 0) {
+            
+            $aResult = array(JSON_TAG_STATUS => JSON_TAG_SUCCESS, JSON_TAG_RECORDS => $aList[JSON_TAG_RESULT]);
+        }
+        elseif ($aList[JSON_TAG_STATUS] == 1) {
+            $aResult = $this->httpStatusServer();
+        } 
+        elseif ($aList[JSON_TAG_STATUS] == 2) { //MANDATORY FIELD REQUIRED
+            $aResult = $this->responseResult(ERRCODE_ERROR,MANDATORY_FIELD_REQUIRED);    
+        }
+        
+        return $aResult;
+    } 
+
     public function  updateCoinOfflineTime($inData){
         $adminManager  = new AdminManager();
         $aResult      = array();

@@ -9,7 +9,7 @@ var apiUrlSendInvite = "sendinvite";
 var apiUrlInvitedUsers = "invited-users";
 
 var apiUrlAdminGateways = "gateways";
-
+var updateBuzzerStatus = "update-buzzer-status";
 var apiUrlBlacklist = "blacklist-gateways";
 
 var apiUrlAdminDevices = "devices";
@@ -283,6 +283,17 @@ function getAdminGateways(searchval) {
                         var gateway_version = value.gateway_version;
                         var user_id = value.user_id;
                         var last_ping_alert = value.last_ping_alert;
+                        var buzzer_status = value.buzzer; // Fetching status from DB
+                        var buzzer_btn =
+                            '<label class="switch">' +
+                            '<input type="checkbox" class="toggle-buzzer" data-gateway="' +
+                            gateway_id +
+                            '" ' +
+                            (buzzer_status === "on" ? "checked" : "") +
+                            ">" +
+                            '<span class="slider round"></span>' +
+                            "</label>";
+
                         var date = '';
 
                         if (gateway_status == 'Online') {
@@ -330,7 +341,8 @@ function getAdminGateways(searchval) {
                             + '<td>' + date + '</td>'
                             + '<td>' + bl_btn + '<span class="done grn"></span></td>'
                             + '<td><a href="#"> <span class="editTimeFactor" data-target="#modalEditTimeFactor" data-toggle="modal" data-gateway="' + gateway_id + '" data-xtime="' + time_factor_x + '" data-ytime="' + time_factor_y + '" data-ztime="' + time_factor_z + '"><span class="glyphicon glyphicon-edit"></span></span> </a></td>'
-                            + '<td>' + restore_btn + '</td>'
+                            + '<td>' + restore_btn + "<td>" +
+                            buzzer_btn + '</td>'
                             + '</tr>';
 
                     });
@@ -620,6 +632,27 @@ $(document).on("click", ".updateSensorId", function (e) {
 
 });
 
+$(document).on("change", ".toggle-buzzer", function () {
+    $("#loader").show()
+    var gateway_id = $(this).data("gateway");
+    var status = $(this).is(":checked") ? "on" : "off";
+
+    console.log(gateway_id, status);
+
+    $.ajax({
+        url: basePathAdmin + updateBuzzerStatus,
+        type: "POST",
+        data: JSON.stringify({ gateway_id: gateway_id, buzzer_status: status }),
+        contentType: "application/json",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("admin", "ADMIN");
+        },
+        success: function (response) {
+            console.log("Buzzer status updated: ", response);
+        }
+    });
+});
+
 $(document).on("click", ".updateStatusinMin", function (e) {
     e.preventDefault();
     $('.success').html('');
@@ -631,7 +664,7 @@ $(document).on("click", ".updateStatusinMin", function (e) {
     console.log("deviceId->>>", deviceId)
     console.log("sensorId->>>", sensorId)
 
-    if(sensorId<=0 ||sensorId>60){
+    if (sensorId <= 0 || sensorId > 60) {
         alert("Status in Min should be greater then 0 & less then 61");
     }
 
