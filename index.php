@@ -48,7 +48,7 @@ require 'library/vendor/autoload.php';
         
         //To Blacklist Gateways
         $Rest->post('/admin/blacklist-gateways',array($AdminCtr, 'blacklistGateways'));
-
+        $Rest->post('/admin/update-buzzer-status',array($AdminCtr, 'updateBuzzerStatus')); 
         //Get Devices for Admin
         $Rest->get('/admin/devices/:gatewayId',array($AdminCtr, 'getAdminDevices')); 
         
