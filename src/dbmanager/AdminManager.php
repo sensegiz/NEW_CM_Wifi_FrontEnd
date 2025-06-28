@@ -1134,7 +1134,7 @@ public function sendMails($emailsArray, $subject, $otp, $gateway_id, $deviceId){
     $subject = urlencode($subject);
     $ch=curl_init();
 
-    curl_setopt($ch,CURLOPT_URL,"http://cm.sensegiz.com:9000/sensegiz-api/ses?message=".$message."&to=".$emailsArray."&subject=".$subject."");
+    curl_setopt($ch,CURLOPT_URL,"http://cm2.sensegiz.com:9000/sensegiz-api/ses?message=".$message."&to=".$emailsArray."&subject=".$subject."");
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
     $output =curl_exec($ch);
     curl_close($ch);

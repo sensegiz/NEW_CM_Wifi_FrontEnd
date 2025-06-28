@@ -604,7 +604,7 @@ $(document).on("click", ".updateSensorId", function (e) {
     }
     console.log("postdata  SensorId==", postdata)
     $.ajax({
-        url: "https://cm.sensegiz.com:9000/setSensorId",
+        url: "https://cm2.sensegiz.com:9000/setSensorId",
         type: 'POST',
         data: JSON.stringify(postdata),
         contentType: 'application/json; charset=utf-8',
@@ -675,7 +675,7 @@ $(document).on("click", ".updateStatusinMin", function (e) {
     }
     console.log("postdata  Status Min==", postdata)
     $.ajax({
-        url: "https://cm.sensegiz.com:9000/setStatusInMin",
+        url: "https://cm2.sensegiz.com:9000/setStatusInMin",
         type: 'POST',
         data: JSON.stringify(postdata),
         contentType: 'application/json; charset=utf-8',
@@ -723,7 +723,7 @@ $(document).on("click", ".sendMeshId", function (e) {
     }
     console.log("postdata  mesh==", postdata)
     $.ajax({
-        url: "https://cm.sensegiz.com:9000/setMeshid",
+        url: "https://cm2.sensegiz.com:9000/setMeshid",
         type: 'POST',
         data: JSON.stringify(postdata),
         contentType: 'application/json; charset=utf-8',
@@ -1617,7 +1617,7 @@ $(document).on("click", ".btnupdateGatewayMeshId", function (e) {
     }
     console.log("postdata  mesh==", postdata)
     $.ajax({
-        url: "https://cm.sensegiz.com:9000/setGatewayMeshId",
+        url: "https://cm2.sensegiz.com:9000/setGatewayMeshId",
         type: 'POST',
         data: JSON.stringify(postdata),
         contentType: 'application/json; charset=utf-8',

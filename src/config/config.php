@@ -17,10 +17,10 @@ define("SERVER", "STAGING");
 define("WEB_CPANEL_FOLDER","admin/");
 define("TIMEZONE", "UTC");
 
-define("URL_END_POINT", "https://cm.sensegiz.com/sensegiz-dev/");
+define("URL_END_POINT", "https://cm2.sensegiz.com/sensegiz-dev/");
 //define("URL_END_POINT", "http://40.83.125.24/sensegiz/");
 
-define("SERVER_IP", "cm.sensegiz.com");
+define("SERVER_IP", "cm2.sensegiz.com");
 
 define("DB_PASS", "CoinLive@AWS");
 
@@ -32,7 +32,7 @@ define("SENDGRID_APIKEY","SG.rsJ_OPLHTU2Kmp9uxBV_NQ.kPHeezQULdSYpxiuu88OoDQ4Nzai
 //define('VERIFICATION_FILE_PATH', 'http://cumulations.com/api');
 
 //define('ADMIN_PATH', 'http://localhost/sensegiz/portal');//development
-define('ADMIN_PATH', 'https://cm.sensegiz.com/sensegiz-dev/portal');//staging
+define('ADMIN_PATH', 'https://cm2.sensegiz.com/sensegiz-dev/portal');//staging
 //define('ADMIN_PATH', 'http://40.83.125.24/sensegiz/portal');//master
 
 //define('PROJECT_PATH', __DIR__);
