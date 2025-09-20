@@ -178,7 +178,8 @@ ul.b {
 	console.log('retrievedObject: ', JSON.parse(retrievedObject));
 
 	var server_ip = getBaseIPUser();
-         var client = new Messaging.Client(server_ip, 8084, "vinkmyclientid_" + parseInt(Math.random() * 100, 10));
+    client = new Paho.MQTT.Client(server_ip, 8084, "vinkmyclientid_" + parseInt(Math.random() * 100, 10));
+	console.log("mqtt connect===", client);
 
 	 //Gets  called if the websocket/mqtt connection gets disconnected for any reason
  	client.onConnectionLost = function (responseObject) {
