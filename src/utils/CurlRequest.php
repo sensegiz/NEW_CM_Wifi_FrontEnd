@@ -48,13 +48,10 @@ class CurlRequest{
 
      function postRequestDataForTransmission($url,$dataArray){
           $postData = http_build_query($dataArray, '', '&');
-//          print_r('post data-'.$postData);exit();
-          //create name value pairs seperated by &
-//          foreach($params as $k => $v) 
-//          { 
-//             $postData .= $k . '='.$v.'&'; 
-//          }
-//          $postData = rtrim($postData, '&');
+
+          error_log("Sending to: $url");
+          error_log("Data: $postData");
+
 
            $ch = curl_init();  
            curl_setopt($ch,CURLOPT_URL,$url);
@@ -67,6 +64,14 @@ class CurlRequest{
            curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);    
 
            $output=curl_exec($ch);
+
+            if (curl_errno($ch)) {
+            // Log the error
+            $error_msg = curl_error($ch);
+             error_log("CURL ERROR (Transmission API): " . $error_msg);
+            curl_close($ch);
+            return false;
+            }
 
            curl_close($ch);
            return $output;        
