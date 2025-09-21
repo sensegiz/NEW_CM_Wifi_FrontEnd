@@ -3135,7 +3135,7 @@ function setCoinTransmissionPower($inData) {
                 	$url        =  URL_END_POINT.'sensegiz-mqtt/publish.php';
                     $testingApiUrl = 'https://cm.sensegiz.com:9000/testingapi';
                 	$response   =  $curl->postRequestData($url, $data_arr);
-                    $testingApiResponse = $curl->postRequestData($testingApiUrl, $data_arr);
+                    $testingApiResponse = $curl->postRequestDataForTransmission($testingApiUrl, $data_arr);
 			}
                 }               
                                  
